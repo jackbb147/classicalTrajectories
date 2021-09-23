@@ -1,6 +1,7 @@
 
 console.log("hello world")
 
+//particle in 1D.
 class particle {
     constructor(energy,position=0){
         this._energy = energy;
@@ -17,6 +18,14 @@ class particle {
     }
     set position(newPosition){
         this._position = newPosition;
+    }
+    updatePosition(dt){
+
+    }
+
+    updateVelocity(V, dt){
+    //    V: the potential function V(x)
+
     }
 }
 
