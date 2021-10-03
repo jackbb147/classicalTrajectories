@@ -1,6 +1,6 @@
 
 function roundTo2Decimal(number){
-    return Number(number).toFixed(2)
+    return number;
 }
 function constantVelocityTrajectory(elapsedT, v0,x0){
     return x0 + v0*elapsedT;
