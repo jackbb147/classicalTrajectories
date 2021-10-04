@@ -1,5 +1,10 @@
 
 import {World, Particle} from "./Model.mjs"
+import {logicalExpression} from "@babel/types";
 
-var p = new Particle([]);
-console.log("hello world", p.getPosition(), p.getVelocity())
+var w  = new World();
+
+
+console.log(w)
+
+var
