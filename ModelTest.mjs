@@ -22,3 +22,24 @@ console.assert(
     "particle array length should be 0"
 )
 
+console.assert(
+    w.getV(10) == 0,
+    "default potential is 0 for all x"
+)
+
+
+/**
+ *  m: number
+    x1,x2: number
+ * @return {number}
+ */
+function V(m, x1, x2){
+    const g = 9.8;
+    return -m *g * x2;
+}
+
+w.setV((m,pos)=>{
+    const g = 9.8;
+
+    return m * g * x;
+})
