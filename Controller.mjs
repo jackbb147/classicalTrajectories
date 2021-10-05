@@ -18,7 +18,8 @@ class Controller {
         this.#world.addParticle(new Particle([0, 100],[0,20]));
         this.#buttons = {
             removeAllParticles: document.querySelector(".removeAllParticles button"),
-            addParticle: document.querySelector(".createParticle button"),
+            addParticle: document.querySelector(".createParticle input[name='create']"),
+            newParticleInitialConditions: document.querySelector(".createParticle"),
             togglePause: document.querySelector(".togglePause button")
         }
         this.setUpEventListeners();
@@ -36,6 +37,20 @@ class Controller {
             event.preventDefault();
             this.#paused = !this.#paused;
         })
+        this.#buttons.addParticle.addEventListener('click', event => {
+            event.preventDefault();
+            console.log(event);
+            const form = this.#buttons.newParticleInitialConditions;
+            console.log(form)
+            const x = Number(form.querySelector("input[id='x']").value);
+            const y = Number(form.querySelector("input[id='y']").value);
+            const vx = Number(form.querySelector("input[id='vx']").value);
+            const vy = Number(form.querySelector("input[id='vy']").value);
+            console.log(x,y,vx,vy)
+            this.#world.addParticle(new Particle([x,y],[vx,vy]));
+            console.log("new particle has been added")
+            console.log(this.#world.getParticles()[0].getPosition())
+        })
 
     }
 
@@ -44,7 +59,7 @@ class Controller {
             if(!this.#paused)
                 this.#world.timeEvolve();
             this.#view.render(this.#world);
-            console.log("i'm being called.")
+            console.log(this.#world);
         }, this.#DELTA_T);
     }
 }

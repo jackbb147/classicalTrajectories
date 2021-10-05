@@ -9,15 +9,18 @@ class Particle {
     #velocity;
     #initialPos;
     #initialVel;
+    #age; //integer starting from 0; increments by 1 each time-quanta
 
     constructor(position, velocity){
-        console.assert(!position || (position instanceof Array && position.length == 2), "Model.mjs line 12")
-        console.assert(!velocity|| (velocity instanceof Array && velocity.length == 2), "Model.mjs line 13")
+        console.assert(!position || (position instanceof Array && position.length == 2 && typeof position[0]==='number' && typeof position[1]==='number'), "Model.mjs line 12")
+        console.assert(!velocity|| (velocity instanceof Array && velocity.length == 2 && typeof velocity[0]==='number' && typeof velocity[1]==='number'), "Model.mjs line 13")
+
         this.#position = position || [0,0];
         this.#velocity = velocity || [0,0];
         this.#initialPos = this.#position;
         this.#initialVel = this.#velocity;
         console.log("hello")
+        this.#age = 0;
     }
 
     /**
@@ -25,6 +28,12 @@ class Particle {
      * @param initial: true if asking for initial value.
      * @returns {*}
      */
+    getAge(){
+        return this.#age;
+    }
+    incrementAge(){
+        this.#age += 1;
+    }
     getPosition(initial){
         return initial ? this.#initialPos : this.#position;
     }
@@ -145,7 +154,7 @@ class World {
         this.#particles.forEach(particle => {
             var pos = particle.getPosition(true);
             var vel = particle.getVelocity(true);
-            var elapsedTime = this.#elapsedTimeIntervalCount * this.#deltaT;
+            var elapsedTime = particle.getAge() * this.#deltaT;
             var newPos = [
                 World.constantVelocityTrajectory(
                     elapsedTime,
@@ -161,6 +170,7 @@ class World {
             ]
 
             particle.setPosition(newPos);
+            particle.incrementAge();
         //!!! velocity hasn't been updated. probably should! !!!
         })
         this.#elapsedTimeIntervalCount ++;
