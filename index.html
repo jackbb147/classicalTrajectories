@@ -6,6 +6,24 @@
 </head>
 <body>
 <canvas id="canvas" width="1500" height="600" style="border:1px solid #000000;"></canvas>
+
+<form class="createParticle">
+    <label for="x">x: </label>
+    <input type="number" id="x"><br>
+    <label for="y">y:</label>
+    <input type="number" id="y"><br>
+    <label for="vx">v_x: </label>
+    <input id="vx"><br>
+    <label for="vy">v_x: </label>
+    <input id="vy">
+    <input type="submit" value="create particle">
+</form>
+
+<br>
+<form class="removeAllParticles">
+    <button>remove all particles</button>
+</form>
+
 <script type="module" src="Controller.mjs"></script>
 </body>
 

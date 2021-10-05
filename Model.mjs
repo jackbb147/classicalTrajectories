@@ -134,6 +134,10 @@ class World {
         this.#particles.splice(i, 1);
     }
 
+    removeAllParticles(){
+        this.#particles.splice(0, this.#particles.length);
+    }
+
 
 
     //inch forward in time, according to the Hamiltonian
