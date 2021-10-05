@@ -4,6 +4,7 @@ import {View} from "./View.mjs";
 
 
 class Controller {
+    #paused; //boolean true or false
     #DELTA_T;
     #view;
     #world;
@@ -17,9 +18,11 @@ class Controller {
         this.#world.addParticle(new Particle([0, 100],[0,20]));
         this.#buttons = {
             removeAllParticles: document.querySelector(".removeAllParticles button"),
-            addParticle: document.querySelector(".createParticle button")
+            addParticle: document.querySelector(".createParticle button"),
+            togglePause: document.querySelector(".togglePause button")
         }
         this.setUpEventListeners();
+        this.#paused = false;
     }
 
     setUpEventListeners(){
@@ -29,11 +32,17 @@ class Controller {
             console.log("all particles removed. ");
             console.log(`world currently has ${this.#world.getParticles().length} particles`)
         })
+        this.#buttons.togglePause.addEventListener('click', event=>{
+            event.preventDefault();
+            this.#paused = !this.#paused;
+        })
+
     }
 
     run(){
         this.#id = setInterval(()=> {
-            this.#world.timeEvolve();
+            if(!this.#paused)
+                this.#world.timeEvolve();
             this.#view.render(this.#world);
             console.log("i'm being called.")
         }, this.#DELTA_T);
